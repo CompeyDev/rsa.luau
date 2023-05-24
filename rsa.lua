@@ -61,7 +61,7 @@ end
 
 
 setmetatable(rsa, {
-  __call = function(phi: number, n: number)
+  __call = function()
     local e, d = derive_expo(phi)
 
     return {
