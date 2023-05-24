@@ -123,3 +123,5 @@ function rsa.decrypt_msg(cipher: string, secret_key: {[number]})
 
   return msg 
 end
+
+return rsa
