@@ -4,18 +4,7 @@ local rsa = {}
 local big_num = require("BigNum")
 
 --// Utils
-local function deep_copy(original)
-	local copy = {}
-	for k, v in pairs(original) do
-		if type(v) == "table" then
-			v = deepCopy(v)
-		end
-		copy[k] = v
-	end
-	return copy
-end
-
-local math = deep_copy(_G.math)
+local math = setmetatable({}, { __index = _G.math })
 
 function math.gcd(a: number, b: number)
   if a == 0 then return b end
