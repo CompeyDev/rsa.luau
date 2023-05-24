@@ -3,6 +3,23 @@ local rsa = {}
 --// Modules
 local big_num = require("BigNum")
 
+--// Variables
+
+-- The P & Q values are purely for demonstration
+-- purposes only. Do not use such numbers in a 
+-- practical scenario.
+local p = big_num.new(57899) 
+local q = big_num.new(32257)
+
+local n = p * q
+
+local BIG_ONE = big_num.new(1)
+local BIG_ZERO = big_num.new(0)
+
+local phi = (p - BIG_ONE) * (q - BIG_ONE)
+
+
+
 --// Utils
 local math = setmetatable({}, { __index = _G.math })
 
@@ -28,31 +45,18 @@ function math.extended_gcd(a: number, b: number, x: number, y: number)
   return gcd
 end
 
--- The P & Q values are purely for demonstration
--- purposes only. Do not use such numbers in a 
--- practical scenario.
-local p = big_num.new(57899) 
-local q = big_num.new(32257)
-
-local n = p * q
-
-local big_one = big_num.new(1)
-local big_zero = big_num.new(0)
-
-local phi = (p - big_one) * (q - big_one)
-
 local function derive_expo(phi: number)
   local e = big_num.new(11131)
   local d
   local offset = big_num.new(200)
   
-  while math.gcd(e, phi) ~= big_one do
+  while math.gcd(e, phi) ~= BIG_ONE do
     e += offset 
   end
   
   d = math.extended_gcd(e, phi)
 
-  while d < big_one do
+  while d < BIG_ONE do
     d += phi
   end
 
@@ -75,7 +79,7 @@ function rsa.encrypt(msg: number, pub_key: {[number]})
   local e = pub_key.e
   local n = pub_key.n
 
-  if msg < big_zero or msg > n or math.gcd(msg, n) ~= big_one then
+  if msg < BIG_ZERO or msg > n or math.gcd(msg, n) ~= BIG_ONE then
     error("invalid msg")
   end
 
