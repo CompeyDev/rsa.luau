@@ -30,7 +30,7 @@ end
 
 -- The P & Q values are purely for demonstration
 -- purposes only. Do not use such numbers in a 
--- practical scneario.
+-- practical scenario.
 local p = big_num.new(57899) 
 local q = big_num.new(32257)
 
